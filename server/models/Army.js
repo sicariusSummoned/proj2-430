@@ -30,7 +30,7 @@ const ArmySchema = new mongoose.Schema({
   },
   listFaction: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
     set: setListFaction,
   },
@@ -42,7 +42,7 @@ const ArmySchema = new mongoose.Schema({
   },
   listSubFaction: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
     set: setListSubFaction,
   },
@@ -73,7 +73,9 @@ ArmySchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return ArmyModel.find(search).select('listName listFaction listArmy listSubFaction listPoints listPower id').exec(callback);
+  return ArmyModel.find(search)
+    .select('listName listFaction listArmy listSubFaction listPoints listPower id')
+    .exec(callback);
 };
 
 ArmySchema.statics.findById = (objId, callback) => {

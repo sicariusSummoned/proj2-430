@@ -17,15 +17,15 @@ const armyPage = (req, res) => {
 };
 
 const makeArmy = (req, res) => {
-  if (!req.body.listName || !req.body.listFaction || !req.body.listArmy || !req.body.listSubFaction || !req.body.listPoints || !req.body.listPower) {
+  if (!req.body.listName || !req.body.listFaction || !req.body.listArmy || !req.body.listPoints) {
     return res.status(400).json({
       error: 'ERROR! All fields must be filled!',
     });
   }
-  
+
   console.log('sending to mongo:');
   console.dir(req.body);
-  
+
   const armyData = {
     listName: req.body.listName,
     listFaction: req.body.listFaction,
@@ -90,9 +90,9 @@ const getArmies = (request, response) => {
       });
     }
 
-    
+
     return res.json({
-      
+
       armies: docs,
     });
   });
