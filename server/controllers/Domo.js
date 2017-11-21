@@ -9,8 +9,6 @@ const makerPage = (req, res) => {
         error: 'An error occurred',
       });
     }
-
-
     return res.render('app', {
       domos: docs,
       csrfToken: req.csrfToken(),
@@ -72,14 +70,6 @@ const deleteDomo = (request, response) => {
         error: 'An error occurred',
       });
     }
-
-    // This returns text and doesn't redirect properly
-    /**
-    return res.json({
-      domos: docs
-    });
-    **/
-
 
     return res.redirect('/maker');
   });

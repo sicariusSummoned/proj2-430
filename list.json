@@ -1,0 +1,37 @@
+armyList: {
+  owner: 'ownerData',
+  createdDate: 'createdDate',
+  listName: 'my list',
+  listFaction: 'faction',
+  listArmy: 'army',
+  listSubFaction: 'subfaction',
+  listPoints: 0,
+  listPowerLevel: 0,  
+  detachments: {
+    detachment: {
+      detachmentType: 'detachmentType',
+      detachmentPoints: 0,
+      detachmentPowerLevel: 0,
+      units: {
+        unit: {
+          unitName: 'unit',
+          unitType: 'unitType',
+          unitPoints: 0,
+          unitPowerLevel: 0,
+          unitUpgrades: 'unitUpgrades',
+          unitUpgradesCost: 0,
+          unitSpecialRules: 'unitRules',
+          models: {
+            model: {
+              modelName: 'model',
+              modelCost: 0,
+              modelUpgrades: 'upgrades',
+              modelStats: 'stats',
+              modelQuantity: 0,
+            }
+          }
+        }
+      }
+    }
+  }
+},

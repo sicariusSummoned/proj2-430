@@ -17,6 +17,21 @@ var handleDomo = function handleDomo(e) {
   return false;
 };
 
+var handleArmy = function handleArmy(e) {
+  e.preventDefault();
+
+  $("domoMessage").animate({ width: 'hide' }, 350);
+
+  if ($("#listName").val() == '' || $("#listArmy").val() == '' || $("#listPoints").val() == '') {
+    handlError("All fields are required!");
+    return false;
+  }
+
+  sendAjax('POST', $("#armyForm").attr("action"), $("#armyForm").serialize(), function () {
+    loadArmiesFromServer();
+  });
+};
+
 var DomoForm = function DomoForm(props) {
   return React.createElement(
     "form",
@@ -65,6 +80,132 @@ var DomoForm = function DomoForm(props) {
     ),
     React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
     React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
+  );
+};
+
+var ArmyForm = function ArmyForm(props) {
+  return React.createElement(
+    "form",
+    { id: "armyForm",
+      onSubmit: handleArmy,
+      name: "armyForm",
+      action: "/maker",
+      method: "POST",
+      className: "armyForm"
+    },
+    React.createElement(
+      "label",
+      { htmlFor: "listName" },
+      "List Name: "
+    ),
+    React.createElement("input", { id: "listName", type: "text", name: "listName", placeholder: "My List" }),
+    React.createElement(
+      "label",
+      { htmlFor: "listFaction" },
+      "Faction: "
+    ),
+    React.createElement("input", { id: "listFaction", type: "text", name: "listFaction", placeholder: "Imperium" }),
+    React.createElement(
+      "label",
+      { htmlFor: "listArmy" },
+      "Army: "
+    ),
+    React.createElement("input", { id: "listArmy", type: "text", name: "listArmy", placeholder: "Imperial Guard" }),
+    React.createElement(
+      "label",
+      { htmlFor: "listSubFaction" },
+      "SubFaction: "
+    ),
+    React.createElement("input", { id: "listSubFaction", type: "text", name: "listSubFaction", placeholder: "Cadian" }),
+    React.createElement(
+      "label",
+      { htmlFor: "listPoints" },
+      "Points: "
+    ),
+    React.createElement("input", { id: "listPoints", type: "text", name: "listPoints", placeholder: "1000" }),
+    React.createElement(
+      "label",
+      { htmlFor: "listPower" },
+      "Power: "
+    ),
+    React.createElement("input", { id: "listPower", type: "text", name: "listPower", placeholder: "58" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "makeArmySubmit", type: "submit", value: "Make Army" })
+  );
+};
+
+var ArmyList = function ArmyList(props) {
+  if (props.armies.length === 0) {
+    return React.createElement(
+      "div",
+      { className: "armyList" },
+      React.createElement(
+        "h3",
+        { className: "emptyArmy" },
+        "Make a List!"
+      )
+    );
+  }
+
+  var armyNodes = props.armies.map(function (army) {
+    console.dir(army);
+    console.log(army.listArmy);
+
+    return React.createElement(
+      "div",
+      { key: army._id, className: "army" },
+      React.createElement(
+        "h3",
+        { className: "listName" },
+        army.listName
+      ),
+      React.createElement(
+        "h3",
+        { className: "listFaction" },
+        "Keyword: ",
+        army.listFaction
+      ),
+      React.createElement(
+        "h3",
+        { className: "listArmy" },
+        "Codex: ",
+        army.listArmy
+      ),
+      React.createElement(
+        "h3",
+        { className: "listSubFaction" },
+        "Doctrines: ",
+        army.listSubFaction
+      ),
+      React.createElement(
+        "h3",
+        { className: "listPoints" },
+        "Points: ",
+        army.listPoints
+      ),
+      React.createElement(
+        "h3",
+        { className: "listPower" },
+        "Power: ",
+        army.listPower
+      ),
+      React.createElement(
+        "a",
+        { className: "armyId", href: "/delete/" + army._id },
+        "DELETE ARMY?"
+      ),
+      React.createElement(
+        "a",
+        { className: "armyId", href: "/detachment/" + army._id },
+        "ADD DETACHMENT?"
+      )
+    );
+  });
+
+  return React.createElement(
+    "div",
+    { className: "armyList" },
+    armyNodes
   );
 };
 
@@ -127,12 +268,20 @@ var loadDomosFromServer = function loadDomosFromServer() {
   });
 };
 
+var loadArmiesFromServer = function loadArmiesFromServer() {
+  sendAjax('GET', '/getArmies', null, function (data) {
+    console.log('loading armies from server:');
+    console.dir(data.armies);
+    ReactDOM.render(React.createElement(ArmyList, { armies: data.armies }), document.querySelector("#armies"));
+  });
+};
+
 var setup = function setup(csrf) {
-  ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector("#makeDomo"));
+  ReactDOM.render(React.createElement(ArmyForm, { csrf: csrf }), document.querySelector("#makeArmy"));
 
-  ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector('#domos'));
+  ReactDOM.render(React.createElement(ArmyList, { armies: [] }), document.querySelector('#armies'));
 
-  loadDomosFromServer();
+  loadArmiesFromServer();
 };
 
 var getToken = function getToken() {
@@ -144,6 +293,42 @@ var getToken = function getToken() {
 $(document).ready(function () {
   getToken();
 });
+
+/**
+const DemoForm = (props) =>{
+  
+  // Determine if condition is true or false
+  const isSelected = true;
+  return(
+    <div>
+      {
+        isSelected &&
+          <p>It is selected!</p>
+      }
+      {
+        !isSelected &&
+          <p>It not selected :(</p>
+      }
+    </div>
+  );
+};
+
+class thing extends React.Component() {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      thing1: 'a',
+      thing2: 'b',
+    }
+  }
+  
+  render() {
+    return (
+    );
+  }
+}
+**/
 "use strict";
 
 var handleError = function handleError(message) {
