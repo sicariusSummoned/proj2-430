@@ -1,19 +1,4 @@
-const handleDomo = (e) => {
-  e.preventDefault();
-  
-  $("domoMessage").animate({width:'hide'}, 350);
-  
-  if($("#domoName").val() == '' || $("#domoAge").val() == ''){
-    handleError("RAWR! All fields are required!");
-    return false;
-  }
-  
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function() {
-    loadDomosFromServer();
-  });
-  
-  return false;
-};
+
 
 const handleArmy = (e) => {
   e.preventDefault();
@@ -27,34 +12,25 @@ const handleArmy = (e) => {
   
   sendAjax('POST', $("#armyForm").attr("action"), $("#armyForm").serialize(), function() {
     loadArmiesFromServer();
-  })
-}
-
-const DomoForm = (props) =>{
-  return(
-    <form id="domoForm"
-      onSubmit={handleDomo}
-      name="domoForm"
-      action="/maker"
-      method="POST"
-      className="domoForm"
-      >
-      <label htmlFor="name">Name: </label>
-      <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
-      <label htmlFor="age">Age: </label>
-      <input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
-      <label htmlFor="faction">Faction</label>
-      <select id="domoFaction" name="faction">
-        <option value="imperium" selected>Imperium</option>
-        <option value="chaos">Chaos</option>
-        <option value="xenos">Xenos</option>
-      </select>
-      <input type="hidden" name="_csrf" value={props.csrf} />
-      <input className="makeDomoSubmit" type="submit" value="Make Domo"/>
-    </form>
-      
-  );
+  });
 };
+
+const handleDetachment = (e) =>{
+  e.preventDefault();
+  
+  $("domoMessage").animate({width:'hide'}, 350);
+  
+  if($("#detachmentType").val() =='' || $("#detachmentPoints").val() ==''){
+    handleError("All fields are required!");
+    return false;
+  }
+  
+  sendAjax('POST', $("#detachmentForm").attr("action"), $("#detachmentForm").serialize(), function(){
+    loadDetachmentsFromServer();
+  });
+};
+
+
 
 const ArmyForm = (props) => {
   return(
@@ -81,6 +57,26 @@ const ArmyForm = (props) => {
       <input className="makeArmySubmit" type="submit" value="Make Army"/>
     </form>
       );
+};
+
+const DetachmentForm = (props) =>{
+  return(
+    <form id="detachmentForm"
+      onSubmit={handleDetachment}
+      name="detachmentForm"
+      action="/detachment"
+      method="POST"
+      className="detachmentForm"
+      >
+    <label htmlFor="detachmentType">Detachment Type: </label>
+    <input id="detachmentType" type="text" name="detachmentType" placeholder="Patrol"/>
+    <label htmlFor="detachmentPoints">Detachment Points: </label>
+    <input id="detachmentPoints" type="text" name="detachmentPoints" placeholder="100"/>
+    <label htmlFor="detachmentPower">Detachment Power: </label>
+    <input id="detachmentPower" type="text" name="detachmentPower" placholder="0"/>
+    <input type="hidden" name="_csrf" value={props.csrf}/>
+    <input className="makeDetachmentSubmit" type="submit" value="Make Detachment"/>
+  );
 };
 
 const ArmyList = function(props) {
@@ -117,42 +113,6 @@ const ArmyList = function(props) {
   );
 };
 
-const DomoList = function(props) {
-  if(props.domos.length === 0) {
-    return (
-      <div className = "domoList">
-        <h3 className = "emptyDomo">No Domos Yet!</h3>
-      </div>
-    );
-  }
-  
-  const domoNodes = props.domos.map(function(domo){
-    return (
-      <div key={domo._id} className="domo">
-        <img src="/assets/img/domoFace.jpeg" alt="domo face" className="domoFace"/>
-        <h3 className="domoName"> Name: {domo.name} </h3>
-        <h3 className="domoAge"> Age: {domo.age} </h3>
-        <h3 className="domoFaction">Faction : {domo.faction}</h3>
-        <a className="domoId" href={"/delete/" + domo._id} >DELETE ME</a>
-      </div>
-    );
-  });
-  
-  return(
-    <div className = "domoList">
-      {domoNodes}
-    </div>
-  );
-};
-
-const loadDomosFromServer = () => {
-  sendAjax('GET', '/getDomos', null, (data) =>{
-    ReactDOM.render(
-      <DomoList domos={data.domos} />,
-      document.querySelector('#domos')
-    );
-  });
-};
 
 const loadArmiesFromServer = () =>{
   sendAjax('GET', '/getArmies', null, (data) =>{
@@ -165,13 +125,26 @@ const loadArmiesFromServer = () =>{
   });
 };
 
+const loadDetachmentsFromServer = () =>{
+  sendAjax('GET', '/getDetachments', null,(data) =>{
+    console.log('loading detachments from server:');
+    console.dir(data.armies);
+    ReactDOM.render(
+      <DetachmentList detachments={data.detachments}/>,
+      document.querySelector("#detachments")
+    );
+  });
+};
+
 const setup = function(csrf) {
   ReactDOM.render(
-    <ArmyForm csrf={csrf} />, document.querySelector("#makeArmy")
+    <ArmyForm csrf={csrf} />,
+    document.querySelector("#makeArmy")
   );
   
   ReactDOM.render(
-    <ArmyList armies={[]}/>, document.querySelector('#armies')
+    <ArmyList armies={[]}/>,
+    document.querySelector('#armies')
   );
   
   loadArmiesFromServer();
@@ -186,39 +159,3 @@ const getToken = () =>{
 $(document).ready(function(){
   getToken();
 });
-
-/**
-const DemoForm = (props) =>{
-  
-  // Determine if condition is true or false
-  const isSelected = true;
-  return(
-    <div>
-      {
-        isSelected &&
-          <p>It is selected!</p>
-      }
-      {
-        !isSelected &&
-          <p>It not selected :(</p>
-      }
-    </div>
-  );
-};
-
-class thing extends React.Component() {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      thing1: 'a',
-      thing2: 'b',
-    }
-  }
-  
-  render() {
-    return (
-    );
-  }
-}
-**/

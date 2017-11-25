@@ -40,17 +40,18 @@ const DetachmentSchema = new mongoose.Schema({
 });
 
 DetachmentSchema.statics.toAPI = (doc) => ({
-  name: doc.name,
-  points: doc.points,
-  faction: doc.faction,
-  subfaction: doc.subfaction,
+  detachmentType: doc.detachmentType,
+  detachmentPoints: doc.detachmentPoints,
+  detachmentPower: doc.detachmentPower,
 });
 
 DetachmentSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return DetachmentModel.find(search).select('name age faction id').exec(callback);
+  return DetachmentModel.find(search)
+    .select('detachmentType detachmentPoints detachmentPower id')
+    .exec(callback);
 };
 
 DetachmentSchema.statics.findById = (objId, callback) => {
