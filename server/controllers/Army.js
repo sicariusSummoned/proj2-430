@@ -92,7 +92,6 @@ const getArmies = (request, response) => {
 
 
     return res.json({
-
       armies: docs,
     });
   });

@@ -7,7 +7,8 @@ let ModelModel = {};
 // mongoose.Types.ObjectID
 // converts string to a mongo id
 const convertId = mongoose.Types.ObjectId;
-const setModelName = (modelName) => _.escape(modelName).trim();
+//modelName is a reserved keyword. This is my workaround.
+const setModelGnome = (modelGnome) => _.escape(modelGnome).trim();
 const setModelStats = (modelStats) => _.escape(modelStats).trim();
 const setModelUpgrades = (modelUpgrades) => _.escape(modelUpgrades).trim();
 
@@ -22,11 +23,12 @@ const ModelSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  modelName: {
+  //modelName is a reserved keyword. This is my workaround.
+  modelGnome: {
     type: String,
     required: true,
     trim: true,
-    set: setModelName,
+    set: setModelGnome,
   },
   modelStats: {
     type: String,
@@ -58,17 +60,22 @@ const ModelSchema = new mongoose.Schema({
 });
 
 ModelSchema.statics.toAPI = (doc) => ({
-  name: doc.name,
-  points: doc.points,
-  faction: doc.faction,
-  subfaction: doc.subfaction,
+  modelName: doc.modelName,
+  modelStats: doc.modelStats,
+  modelPoints: doc.modelPoints,
+  modelQuantity: doc.modelQuantity,
+  modelUpgrades: doc.modelUpgrades,
+  modelUpgradesCost: doc.modelUpgradesCost,
 });
 
 ModelSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return ModelModel.find(search).select('name age faction id').exec(callback);
+  return ModelModel
+    .find(search)
+    .select('modelName modelStats modelPoints modelQuantity modelUpgrades modelUpgradesCost id')
+    .exec(callback);
 };
 
 ModelSchema.statics.findById = (objId, callback) => {

@@ -65,17 +65,23 @@ const UnitSchema = new mongoose.Schema({
 });
 
 UnitSchema.statics.toAPI = (doc) => ({
-  name: doc.name,
-  points: doc.points,
-  faction: doc.faction,
-  subfaction: doc.subfaction,
+  unitName: doc.unitName,
+  unitType: doc.unitType,
+  unitPoints: doc.unitPoints,
+  unitPower: doc.unitPower,
+  unitUpgrades: doc.unitUpgrades,
+  unitUpgradesCost: doc.unitUpgradesCost,
+  unitSpecialRules: doc.unitSpecialRules
 });
 
 UnitSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
-  return UnitModel.find(search).select('name age faction id').exec(callback);
+  return UnitModel
+    .find(search)
+    .select('unitName unitType unitPoints unitPower unitUpgrades unitUpgradesCost unitSpecialRules id')
+    .exec(callback);
 };
 
 UnitSchema.statics.findById = (objId, callback) => {

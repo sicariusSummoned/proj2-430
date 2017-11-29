@@ -1,22 +1,5 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
-  e.preventDefault();
-
-  $("domoMessage").animate({ width: 'hide' }, 350);
-
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
-    handleError("RAWR! All fields are required!");
-    return false;
-  }
-
-  sendAjax('POST', $("#domoForm").attr("action"), $("#domoForm").serialize(), function () {
-    loadDomosFromServer();
-  });
-
-  return false;
-};
-
 var handleArmy = function handleArmy(e) {
   e.preventDefault();
 
@@ -32,55 +15,51 @@ var handleArmy = function handleArmy(e) {
   });
 };
 
-var DomoForm = function DomoForm(props) {
-  return React.createElement(
-    "form",
-    { id: "domoForm",
-      onSubmit: handleDomo,
-      name: "domoForm",
-      action: "/maker",
-      method: "POST",
-      className: "domoForm"
-    },
-    React.createElement(
-      "label",
-      { htmlFor: "name" },
-      "Name: "
-    ),
-    React.createElement("input", { id: "domoName", type: "text", name: "name", placeholder: "Domo Name" }),
-    React.createElement(
-      "label",
-      { htmlFor: "age" },
-      "Age: "
-    ),
-    React.createElement("input", { id: "domoAge", type: "text", name: "age", placeholder: "Domo Age" }),
-    React.createElement(
-      "label",
-      { htmlFor: "faction" },
-      "Faction"
-    ),
-    React.createElement(
-      "select",
-      { id: "domoFaction", name: "faction" },
-      React.createElement(
-        "option",
-        { value: "imperium", selected: true },
-        "Imperium"
-      ),
-      React.createElement(
-        "option",
-        { value: "chaos" },
-        "Chaos"
-      ),
-      React.createElement(
-        "option",
-        { value: "xenos" },
-        "Xenos"
-      )
-    ),
-    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-    React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
-  );
+var handleDetachment = function handleDetachment(e) {
+  e.preventDefault();
+
+  $("domoMessage").animate({ width: 'hide' }, 350);
+
+  if ($("#detachmentType").val() == '' || $("#detachmentPoints").val() == '') {
+    handleError("All fields are required!");
+    return false;
+  }
+  console.dir($("#detachmentForm").attr("action"));
+
+  sendAjax('POST', $("#detachmentForm").attr("action"), $("#detachmentForm").serialize(), function () {
+
+    loadDetachmentsFromServer();
+  });
+};
+
+var handleUnit = function handleUnit(e) {
+  e.preventDefault();
+
+  $("domoMessage").animate({ width: 'hide' }, 350);
+
+  if ($("unitName").val() == '' || $("#unitType").val() == '' || $("#unitPoints").val() == '') {
+    handleError("All fields are required!");
+    return false;
+  }
+
+  sendAjax('POST', $("#unitForm").attr("action"), $("unitForm").serialize(), function () {
+    loadUnitsFromServer();
+  });
+};
+
+var handleModel = function handleModel(e) {
+  e.preventDefault();
+
+  $("domoMessage").animate({ width: 'hide' }, 350);
+
+  if ($("modelName").val() == '' || $("#modelPoints").val() == '' || $("#modelQuantity").val() == '') {
+    handleError("All fields are required!");
+    return false;
+  }
+
+  sendAjax('POST', $("#modelForm").attr("action"), $("modelForm").serialize(), function () {
+    loadModelsFromServer();
+  });
 };
 
 var ArmyForm = function ArmyForm(props) {
@@ -131,6 +110,153 @@ var ArmyForm = function ArmyForm(props) {
     React.createElement("input", { id: "listPower", type: "text", name: "listPower", placeholder: "58" }),
     React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
     React.createElement("input", { className: "makeArmySubmit", type: "submit", value: "Make Army" })
+  );
+};
+
+var DetachmentForm = function DetachmentForm(props) {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  return React.createElement(
+    "form",
+    { id: "detachmentForm",
+      onSubmit: handleDetachment,
+      name: "detachmentForm",
+      action: "/detachments/" + ownerString,
+      method: "POST",
+      className: "detachmentForm"
+    },
+    React.createElement(
+      "label",
+      { htmlFor: "detachmentType" },
+      "Detachment Type: "
+    ),
+    React.createElement("input", { id: "detachmentType", type: "text", name: "detachmentType", placeholder: "Patrol" }),
+    React.createElement(
+      "label",
+      { htmlFor: "detachmentPoints" },
+      "Detachment Points: "
+    ),
+    React.createElement("input", { id: "detachmentPoints", type: "text", name: "detachmentPoints", placeholder: "100" }),
+    React.createElement(
+      "label",
+      { htmlFor: "detachmentPower" },
+      "Detachment Power: "
+    ),
+    React.createElement("input", { id: "detachmentPower", type: "text", name: "detachmentPower", placeholder: "0" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "makeDetachmentSubmit", type: "submit", value: "Make Detachment" })
+  );
+};
+
+var UnitForm = function UnitForm(props) {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  return React.createElement(
+    "form",
+    { id: "unitForm",
+      onSubmit: handleUnit,
+      name: "unitForm",
+      action: "/units/" + ownerString,
+      method: "POST",
+      className: "unitForm"
+    },
+    React.createElement(
+      "label",
+      { htmlFor: "unitName" },
+      "Unit Name: "
+    ),
+    React.createElement("input", { id: "unitName", type: "text", name: "unitName", placeholder: "Infantry Squad" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitType" },
+      "Unit Type: "
+    ),
+    React.createElement("input", { id: "unitType", type: "text", name: "unitType", placeholder: "Infantry" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitPoints" },
+      "Unit Points: "
+    ),
+    React.createElement("input", { id: "unitPoints", type: "text", name: "unitPoints", placeholder: "100" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitPower" },
+      "Unit Power: "
+    ),
+    React.createElement("input", { id: "unitPower", type: "text", name: "unitPower", placeholder: "3" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitUpgrades" },
+      "Unit Upgrades: "
+    ),
+    React.createElement("input", { id: "unitUpgrades", type: "text", name: "unitUpgrades", placeholder: "none" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitUpgradesCost" },
+      "Upgrade Costs: "
+    ),
+    React.createElement("input", { id: "unitUpgradesCost", type: "text", name: "unitUpgradesCost", placeholder: "0" }),
+    React.createElement(
+      "label",
+      { htmlFor: "unitSpecialRules" },
+      "Special Rules: "
+    ),
+    React.createElement("input", { id: "unitSpecialRules", type: "text", name: "unitSpecialRules", placeholder: "Infantry" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "makeUnitSubmit", type: "submit", value: "Make Unit" })
+  );
+};
+
+var ModelForm = function ModelForm(props) {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  return React.createElement(
+    "form",
+    { id: "modelForm",
+      onSubmit: handleModel,
+      name: "modelForm",
+      action: "/models/" + ownerString,
+      method: "POST",
+      className: "modelForm"
+    },
+    React.createElement(
+      "label",
+      { htmlFor: "modelName" },
+      "Model Name: "
+    ),
+    React.createElement("input", { id: "modelName", type: "text", name: "modelName", placeholder: "Guardsman" }),
+    React.createElement(
+      "label",
+      { htmlFor: "modelStats" },
+      "Model Stats: "
+    ),
+    React.createElement("input", { id: "modelStats", type: "text", name: "modelStats", placeholder: "Bs4+ Ws4+ W1 S3 T3 Ld7 Sv5+" }),
+    React.createElement(
+      "label",
+      { htmlFor: "modelPoints" },
+      "Model Points: "
+    ),
+    React.createElement("input", { id: "modelPoints", type: "text", name: "modelPoints", placeholder: "0" }),
+    React.createElement(
+      "label",
+      { htmlFor: "modelQuantity" },
+      "Model Quantity: "
+    ),
+    React.createElement("input", { id: "modelQuantity", type: "text", name: "modelQuantity", placeholder: "9" }),
+    React.createElement(
+      "label",
+      { htmlFor: "modelupgrades" },
+      "Model Upgrades: "
+    ),
+    React.createElement("input", { id: "modelUpgrades", type: "text", name: "modelUpgrades", placeholder: "Lasgun CCW Frags" }),
+    React.createElement(
+      "label",
+      { htmlFor: "modelUpgradesCost" },
+      "Upgrade Costs: "
+    ),
+    React.createElement("input", { id: "modelUpgradesCost", type: "text", name: "modelUpgradesCost", placeholder: "0" }),
+    React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+    React.createElement("input", { className: "makeModelSubmit", type: "submit", value: " Make Model" })
   );
 };
 
@@ -196,7 +322,7 @@ var ArmyList = function ArmyList(props) {
       ),
       React.createElement(
         "a",
-        { className: "armyId", href: "/detachment/" + army._id },
+        { className: "armyId", href: "/detachments/" + army._id },
         "ADD DETACHMENT?"
       )
     );
@@ -209,63 +335,216 @@ var ArmyList = function ArmyList(props) {
   );
 };
 
-var DomoList = function DomoList(props) {
-  if (props.domos.length === 0) {
+var DetachmentList = function DetachmentList(props) {
+  if (props.detachments.length === 0) {
     return React.createElement(
       "div",
-      { className: "domoList" },
+      { className: "detachmentList" },
       React.createElement(
         "h3",
-        { className: "emptyDomo" },
-        "No Domos Yet!"
+        { className: "emptyDetachment" },
+        "Add a Detachment!"
       )
     );
   }
 
-  var domoNodes = props.domos.map(function (domo) {
+  var detachmentNodes = props.detachments.map(function (detachment) {
+    console.dir(detachment);
+
+    var ownerString = window.location.pathname.split('/')[2];
+    console.log(ownerString);
+
     return React.createElement(
       "div",
-      { key: domo._id, className: "domo" },
-      React.createElement("img", { src: "/assets/img/domoFace.jpeg", alt: "domo face", className: "domoFace" }),
+      { key: detachment._id, className: "detachment" },
       React.createElement(
         "h3",
-        { className: "domoName" },
-        " Name: ",
-        domo.name,
-        " "
+        { className: "detachmentType" },
+        "Type: ",
+        detachment.detachmentType
       ),
       React.createElement(
         "h3",
-        { className: "domoAge" },
-        " Age: ",
-        domo.age,
-        " "
+        { className: "detachmentPoints" },
+        "Points: ",
+        detachment.detachmentPoints
       ),
       React.createElement(
         "h3",
-        { className: "domoFaction" },
-        "Faction : ",
-        domo.faction
+        { className: "detachmentPower" },
+        "Power: ",
+        detachment.detachmentPower
       ),
       React.createElement(
         "a",
-        { className: "domoId", href: "/delete/" + domo._id },
-        "DELETE ME"
+        { className: "detachmentId", href: "/deleteDetachment/" + detachment._id + '/' + ownerString },
+        "DELETE DETACHMENT?"
+      ),
+      React.createElement(
+        "a",
+        { className: "detachmentId", href: "/units/" + detachment._id },
+        "ADD UNIT?"
       )
     );
   });
-
   return React.createElement(
     "div",
-    { className: "domoList" },
-    domoNodes
+    { className: "detachmentList" },
+    detachmentNodes
   );
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-  sendAjax('GET', '/getDomos', null, function (data) {
-    ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector('#domos'));
+var UnitList = function UnitList(props) {
+  if (props.units.length === 0) {
+    return React.createElement(
+      "div",
+      { className: "unitList" },
+      React.createElement(
+        "h3",
+        { className: "emptyUnit" },
+        "Add a Unit!"
+      )
+    );
+  }
+
+  var unitNodes = props.units.map(function (unit) {
+    console.dir(unit);
+
+    var ownerString = window.location.pathname.split('/')[2];
+    console.log(ownerString);
+
+    return React.createElement(
+      "div",
+      { key: unit._id, className: "unit" },
+      React.createElement(
+        "h3",
+        { className: "unitName" },
+        unit.unitName
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitType" },
+        "Type: ",
+        unit.unitType
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitPoints" },
+        "Points: ",
+        unit.unitPoints
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitPower" },
+        "Power: ",
+        unit.unitPower
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitUpgrades" },
+        "Upgrades: ",
+        unit.unitUpgrades
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitUpgradesCost" },
+        "Upgrades Cost: ",
+        unit.unitUpgradesCost
+      ),
+      React.createElement(
+        "h3",
+        { className: "unitSpecialRules" },
+        "Special Rules: ",
+        unit.unitSpecialRules
+      ),
+      React.createElement(
+        "a",
+        { className: "unitId", href: "/deleteUnit/" + unit._id + '/' + ownerString },
+        "DELETE DETACHMENT?"
+      ),
+      React.createElement(
+        "a",
+        { className: "unitId", href: "/models/" + unit._id },
+        "ADD MODEL?"
+      )
+    );
   });
+  return React.createElement(
+    "div",
+    { className: "unitList" },
+    unitNodes
+  );
+};
+
+var ModelList = function ModelList(props) {
+  if (props.models.length === 0) {
+    return React.createElement(
+      "div",
+      { className: "modelList" },
+      React.createElement(
+        "h3",
+        { className: "emptyModel" },
+        "Add a Model!"
+      )
+    );
+  }
+
+  var modelNodes = props.models.map(function (model) {
+    console.dir(model);
+
+    var ownerString = window.location.pathname.split('/')[2];
+    console.log(ownerString);
+
+    return React.createElement(
+      "div",
+      { key: model._id, className: "model" },
+      React.createElement(
+        "h3",
+        { className: "modelName" },
+        model.modelGnome
+      ),
+      React.createElement(
+        "h3",
+        { className: "modelStats" },
+        "Stats: ",
+        model.modelStats
+      ),
+      React.createElement(
+        "h3",
+        { className: "modelPoints" },
+        "Points: ",
+        model.modelPoints
+      ),
+      React.createElement(
+        "h3",
+        { className: "modelQuantity" },
+        "#: ",
+        model.modelQuantity
+      ),
+      React.createElement(
+        "h3",
+        { className: "modelUpgrades" },
+        "Upgrades: ",
+        model.modelUpgrades
+      ),
+      React.createElement(
+        "h3",
+        { className: "modelUpgradesCost" },
+        "Upgrades Cost: ",
+        model.modelUpgradesCost
+      ),
+      React.createElement(
+        "a",
+        { className: "modelId", href: "/deleteModel/" + model._id + '/' + ownerString },
+        "DELETE MODEL?"
+      )
+    );
+  });
+  return React.createElement(
+    "div",
+    { className: "modelList" },
+    modelNodes
+  );
 };
 
 var loadArmiesFromServer = function loadArmiesFromServer() {
@@ -276,12 +555,66 @@ var loadArmiesFromServer = function loadArmiesFromServer() {
   });
 };
 
+var loadDetachmentsFromServer = function loadDetachmentsFromServer() {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  var fullString = '/getDetachments/' + ownerString;
+
+  sendAjax('GET', fullString, null, function (data) {
+    console.log('loading detachments from server:');
+    console.dir(data.detachments);
+    ReactDOM.render(React.createElement(DetachmentList, { detachments: data.detachments }), document.querySelector("#armies"));
+  });
+};
+
+var loadUnitsFromServer = function loadUnitsFromServer() {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  var fullString = '/getUnits/' + ownerString;
+
+  sendAjax('GET', fullString, null, function (data) {
+    console.log('loading units from server:');
+    console.dir(data.units);
+    ReactDOM.render(React.createElement(UnitList, { units: data.units }), document.querySelector("#armies"));
+  });
+};
+
+var loadModelsFromServer = function loadModelsFromServer() {
+  var ownerString = window.location.pathname.split('/')[2];
+  console.log(ownerString);
+  var fullString = '/getModels/' + ownerString;
+
+  sendAjax('GET', fullString, null, function (data) {
+    console.log('loading models from server:');
+    console.dir(data.models);
+    ReactDOM.render(React.createElement(ModelList, { models: data.models }), document.querySelector("#armies"));
+  });
+};
+
 var setup = function setup(csrf) {
-  ReactDOM.render(React.createElement(ArmyForm, { csrf: csrf }), document.querySelector("#makeArmy"));
+  switch (page) {
+    case 'detachments':
+      ReactDOM.render(React.createElement(DetachmentForm, { csrf: csrf }), document.querySelector("#makeArmy"));
+      ReactDOM.render(React.createElement(DetachmentList, { detachments: [] }), document.querySelector('#armies'));
+      loadDetachmentsFromServer();
+      break;
+    case 'units':
+      ReactDOM.render(React.createElement(UnitForm, { csrf: csrf }), document.querySelector("#makeArmy"));
+      ReactDOM.render(React.createElement(UnitList, { units: [] }), document.querySelector("#armies"));
+      loadUnitsFromServer();
+      break;
+    case 'models':
+      ReactDOM.render(React.createElement(ModelForm, { csrf: csrf }), document.querySelector("#makeArmy"));
+      ReactDOM.render(React.createElement(ModelList, { models: [] }), document.querySelector("#armies"));
+      loadModelsFromServer();
+      break;
+    default:
+      ReactDOM.render(React.createElement(ArmyForm, { csrf: csrf }), document.querySelector("#makeArmy"));
+      ReactDOM.render(React.createElement(ArmyList, { armies: [] }), document.querySelector('#armies'));
 
-  ReactDOM.render(React.createElement(ArmyList, { armies: [] }), document.querySelector('#armies'));
-
-  loadArmiesFromServer();
+      loadArmiesFromServer();
+      break;
+  }
 };
 
 var getToken = function getToken() {
@@ -293,42 +626,6 @@ var getToken = function getToken() {
 $(document).ready(function () {
   getToken();
 });
-
-/**
-const DemoForm = (props) =>{
-  
-  // Determine if condition is true or false
-  const isSelected = true;
-  return(
-    <div>
-      {
-        isSelected &&
-          <p>It is selected!</p>
-      }
-      {
-        !isSelected &&
-          <p>It not selected :(</p>
-      }
-    </div>
-  );
-};
-
-class thing extends React.Component() {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      thing1: 'a',
-      thing2: 'b',
-    }
-  }
-  
-  render() {
-    return (
-    );
-  }
-}
-**/
 "use strict";
 
 var handleError = function handleError(message) {
