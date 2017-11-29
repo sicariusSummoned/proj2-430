@@ -80,7 +80,8 @@ UnitSchema.statics.findByOwner = (ownerId, callback) => {
   };
   return UnitModel
     .find(search)
-    .select('unitName unitType unitPoints unitPower unitUpgrades unitUpgradesCost unitSpecialRules id')
+    .select('unitName unitType unitPoints unitPower'+
+            ' unitUpgrades unitUpgradesCost unitSpecialRules id')
     .exec(callback);
 };
 

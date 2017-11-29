@@ -5,7 +5,9 @@ const router = (app) => {
   app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
 
   app.get('/delete/:armyId', mid.requiresSecure, controllers.Army.deleteArmy);
-  app.get('/deleteDetachment/:detachmentId/:armyId', mid.requiresSecure, controllers.Detachment.deleteDetachment);
+  app.get('/deleteDetachment/:detachmentId/:armyId',
+          mid.requiresSecure,
+          controllers.Detachment.deleteDetachment);
   app.get('/deleteUnit/:unitId/:detachmentId', mid.requiresSecure, controllers.Unit.deleteUnit);
   app.get('/deleteModel/:modelId/:unitId', mid.requiresSecure, controllers.Model.deleteModel);
 
