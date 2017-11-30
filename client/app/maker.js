@@ -42,7 +42,7 @@ const handleUnit = (e) =>{
     return false;
   }
   
-  sendAjax('POST', $("#unitForm").attr("action"), $("unitForm").serialize(),function() {
+  sendAjax('POST', $("#unitForm").attr("action"), $("#unitForm").serialize(),function() {
     loadUnitsFromServer();
   });
 };
@@ -57,7 +57,7 @@ const handleModel = (e) =>{
     return false;
   }
   
-  sendAjax('POST', $("#modelForm").attr("action"), $("modelForm").serialize(),function() {
+  sendAjax('POST', $("#modelForm").attr("action"), $("#modelForm").serialize(),function() {
     loadModelsFromServer();
   });
 };
