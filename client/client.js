@@ -1,6 +1,6 @@
 const handleError = (message) => {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({width:'toggle'},350);
+  $("#domoMessage").animate({width:'toggle'},650);
 }
 
 const sendAjax = (action, data) => {
@@ -11,7 +11,7 @@ const sendAjax = (action, data) => {
     data: data,
     dataType: "json",
     success: (result, status, xhr) => {
-      $("#domoMessage").animate({width:'hide'},350);
+      $("#domoMessage").animate({width:'hide'},650);
 
       window.location = result.redirect;
     },
@@ -27,15 +27,15 @@ $(document).ready(() => {
   $("#signupForm").on("submit", (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#domoMessage").animate({width:'hide'},650);
 
     if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-      handleError("RAWR! All fields are required");
+      handleError("ERROR! All fields are required!");
       return false;
     }
 
     if($("#pass").val() !== $("#pass2").val()) {
-      handleError("RAWR! Passwords do not match");
+      handleError("ERROR! Passwords must match!");
       return false;           
     }
 
@@ -47,10 +47,10 @@ $(document).ready(() => {
   $("#loginForm").on("submit", (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#domoMessage").animate({width:'hide'},650);
 
     if($("#user").val() == '' || $("#pass").val() == '') {
-      handleError("RAWR! Username or password is empty");
+      handleError("ERROR! Missing information detected!");
       return false;
     }
 
@@ -62,10 +62,10 @@ $(document).ready(() => {
   $("#domoForm").on("submit", (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#domoMessage").animate({width:'hide'},650);
 
     if($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoFaction").val() == '') {
-      handleError("RAWR! All fields are required");
+      handleError("ERROR! All fields are required");
       return false;
     }
 

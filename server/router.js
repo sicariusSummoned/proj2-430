@@ -36,7 +36,8 @@ const router = (app) => {
   app.get('/models/:unitId', mid.requiresLogin, controllers.Model.modelPage);
   app.post('/models/:unitId', mid.requiresLogin, controllers.Model.makeModel);
 
-  app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  app.get('/*', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+  
 };
 
 module.exports = router;

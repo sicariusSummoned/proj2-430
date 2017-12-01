@@ -6,7 +6,7 @@ const handleLogin = (e) => {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
-    handleError("RAWR! Username or password is empty");
+    handleError("ERROR! Missing data detected!");
     return false;
   }
 
@@ -24,12 +24,12 @@ const handleSignup = (e) => {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("RAWR! All fields are required");
+    handleError("ERROR! Missing data detected!");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("RAWR! Passwords do not match!");
+    handleError("ERROR! Passwords must match!");
     return false;
   }
 

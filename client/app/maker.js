@@ -6,7 +6,7 @@ const handleArmy = (e) => {
   $("domoMessage").animate({width:'hide'}, 350);
   
   if($("#listName").val() == '' || $("#listArmy").val() == '' || $("#listPoints").val() == ''){
-    handlError("All fields are required!");
+    handleError("All fields are required!");
     return false;
   }
   
@@ -194,8 +194,8 @@ const ArmyList = function(props) {
         <h3 className="listSubFaction">Doctrines: {army.listSubFaction}</h3>
         <h3 className="listPoints">Points: {army.listPoints}</h3>
         <h3 className="listPower">Power: {army.listPower}</h3>
-        <a className="armyId" href={"/delete/"+ army._id}>DELETE ARMY?</a>
-        <a className="armyId" href={"/detachments/"+ army._id}>ADD DETACHMENT?</a>
+        <a className="armyId" className="deleteImg" href={"/delete/"+ army._id}><img src="/assets/img/minus.png"/></a>
+        <a className="armyId" className="addImg" href={"/detachments/"+ army._id}><img src="/assets/img/plus.png"/></a>
       </div>
     );
   });
@@ -227,8 +227,8 @@ const DetachmentList = function(props) {
         <h3 className="detachmentType">Type: {detachment.detachmentType}</h3>
         <h3 className="detachmentPoints">Points: {detachment.detachmentPoints}</h3>
         <h3 className="detachmentPower">Power: {detachment.detachmentPower}</h3>
-        <a className="detachmentId" href={"/deleteDetachment/"+detachment._id +'/'+ownerString}>DELETE DETACHMENT?</a>
-        <a className="detachmentId" href={"/units/"+detachment._id}>ADD UNIT?</a>
+        <a className="detachmentId" className="deleteImg" href={"/deleteDetachment/"+detachment._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+        <a className="detachmentId" className="addImg" href={"/units/"+detachment._id}><img src="/assets/img/plus.png"/></a>
       </div>
     );
   });
@@ -263,8 +263,8 @@ const UnitList = function(props) {
         <h3 className="unitUpgrades">Upgrades: {unit.unitUpgrades}</h3>
         <h3 className="unitUpgradesCost">Upgrades Cost: {unit.unitUpgradesCost}</h3>
         <h3 className="unitSpecialRules">Special Rules: {unit.unitSpecialRules}</h3>
-        <a className="unitId" href={"/deleteUnit/"+unit._id +'/'+ownerString}>DELETE DETACHMENT?</a>
-        <a className="unitId" href={"/models/"+unit._id}>ADD MODEL?</a>
+        <a className="unitId" className="deleteImg" href={"/deleteUnit/"+unit._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+        <a className="unitId" className="addImg" href={"/models/"+unit._id}><img src="/assets/img/plus.png"/></a>
       </div>
     );
   });
@@ -283,6 +283,7 @@ const ModelList = function(props) {
       </div>
     );
   }
+
   
   const modelNodes = props.models.map(function(model){
     console.dir(model);
@@ -298,7 +299,7 @@ const ModelList = function(props) {
         <h3 className="modelQuantity">#: {model.modelQuantity}</h3>
         <h3 className="modelUpgrades">Upgrades: {model.modelUpgrades}</h3>
         <h3 className="modelUpgradesCost">Upgrades Cost: {model.modelUpgradesCost}</h3>
-        <a className="modelId" href={"/deleteModel/"+model._id +'/'+ownerString}>DELETE MODEL?</a>
+        <a className="modelId" className="deleteImg" href={"/deleteModel/"+model._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
       </div>
     );
   });

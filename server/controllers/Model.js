@@ -37,6 +37,9 @@ const makeModel = (req, res) => {
     owner: req.params.unitId, 
   };
   
+  console.log('modelData:');
+  console.dir(modelData);
+  
   const newModel = new Model.ModelModel(modelData);
   
   const modelPromise = newModel.save();

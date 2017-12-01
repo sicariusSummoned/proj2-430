@@ -1,12 +1,14 @@
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var handleArmy = function handleArmy(e) {
   e.preventDefault();
 
   $("domoMessage").animate({ width: 'hide' }, 350);
 
   if ($("#listName").val() == '' || $("#listArmy").val() == '' || $("#listPoints").val() == '') {
-    handlError("All fields are required!");
+    handleError("All fields are required!");
     return false;
   }
 
@@ -274,6 +276,8 @@ var ArmyList = function ArmyList(props) {
   }
 
   var armyNodes = props.armies.map(function (army) {
+    var _React$createElement, _React$createElement2;
+
     console.dir(army);
     console.log(army.listArmy);
 
@@ -317,13 +321,13 @@ var ArmyList = function ArmyList(props) {
       ),
       React.createElement(
         "a",
-        { className: "armyId", href: "/delete/" + army._id },
-        "DELETE ARMY?"
+        (_React$createElement = { className: "armyId" }, _defineProperty(_React$createElement, "className", "deleteImg"), _defineProperty(_React$createElement, "href", "/delete/" + army._id), _React$createElement),
+        React.createElement("img", { src: "/assets/img/minus.png" })
       ),
       React.createElement(
         "a",
-        { className: "armyId", href: "/detachments/" + army._id },
-        "ADD DETACHMENT?"
+        (_React$createElement2 = { className: "armyId" }, _defineProperty(_React$createElement2, "className", "addImg"), _defineProperty(_React$createElement2, "href", "/detachments/" + army._id), _React$createElement2),
+        React.createElement("img", { src: "/assets/img/plus.png" })
       )
     );
   });
@@ -349,6 +353,8 @@ var DetachmentList = function DetachmentList(props) {
   }
 
   var detachmentNodes = props.detachments.map(function (detachment) {
+    var _React$createElement3, _React$createElement4;
+
     console.dir(detachment);
 
     var ownerString = window.location.pathname.split('/')[2];
@@ -377,13 +383,13 @@ var DetachmentList = function DetachmentList(props) {
       ),
       React.createElement(
         "a",
-        { className: "detachmentId", href: "/deleteDetachment/" + detachment._id + '/' + ownerString },
-        "DELETE DETACHMENT?"
+        (_React$createElement3 = { className: "detachmentId" }, _defineProperty(_React$createElement3, "className", "deleteImg"), _defineProperty(_React$createElement3, "href", "/deleteDetachment/" + detachment._id + '/' + ownerString), _React$createElement3),
+        React.createElement("img", { src: "/assets/img/minus.png" })
       ),
       React.createElement(
         "a",
-        { className: "detachmentId", href: "/units/" + detachment._id },
-        "ADD UNIT?"
+        (_React$createElement4 = { className: "detachmentId" }, _defineProperty(_React$createElement4, "className", "addImg"), _defineProperty(_React$createElement4, "href", "/units/" + detachment._id), _React$createElement4),
+        React.createElement("img", { src: "/assets/img/plus.png" })
       )
     );
   });
@@ -408,6 +414,8 @@ var UnitList = function UnitList(props) {
   }
 
   var unitNodes = props.units.map(function (unit) {
+    var _React$createElement5, _React$createElement6;
+
     console.dir(unit);
 
     var ownerString = window.location.pathname.split('/')[2];
@@ -459,13 +467,13 @@ var UnitList = function UnitList(props) {
       ),
       React.createElement(
         "a",
-        { className: "unitId", href: "/deleteUnit/" + unit._id + '/' + ownerString },
-        "DELETE DETACHMENT?"
+        (_React$createElement5 = { className: "unitId" }, _defineProperty(_React$createElement5, "className", "deleteImg"), _defineProperty(_React$createElement5, "href", "/deleteUnit/" + unit._id + '/' + ownerString), _React$createElement5),
+        React.createElement("img", { src: "/assets/img/minus.png" })
       ),
       React.createElement(
         "a",
-        { className: "unitId", href: "/models/" + unit._id },
-        "ADD MODEL?"
+        (_React$createElement6 = { className: "unitId" }, _defineProperty(_React$createElement6, "className", "addImg"), _defineProperty(_React$createElement6, "href", "/models/" + unit._id), _React$createElement6),
+        React.createElement("img", { src: "/assets/img/plus.png" })
       )
     );
   });
@@ -490,6 +498,8 @@ var ModelList = function ModelList(props) {
   }
 
   var modelNodes = props.models.map(function (model) {
+    var _React$createElement7;
+
     console.dir(model);
 
     var ownerString = window.location.pathname.split('/')[2];
@@ -535,8 +545,8 @@ var ModelList = function ModelList(props) {
       ),
       React.createElement(
         "a",
-        { className: "modelId", href: "/deleteModel/" + model._id + '/' + ownerString },
-        "DELETE MODEL?"
+        (_React$createElement7 = { className: "modelId" }, _defineProperty(_React$createElement7, "className", "deleteImg"), _defineProperty(_React$createElement7, "href", "/deleteModel/" + model._id + '/' + ownerString), _React$createElement7),
+        React.createElement("img", { src: "/assets/img/minus.png" })
       )
     );
   });
@@ -630,11 +640,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({ width: 'toggle' }, 350);
+  $("#domoMessage").animate({ width: 'toggle' }, 650);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({ width: 'hide' }, 350);
+  $("#domoMessage").animate({ width: 'hide' }, 650);
   window.location = response.redirect;
 };
 

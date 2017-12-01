@@ -60,7 +60,7 @@ const ModelSchema = new mongoose.Schema({
 });
 
 ModelSchema.statics.toAPI = (doc) => ({
-  modelName: doc.modelName,
+  modelGnome: doc.modelGnome,
   modelStats: doc.modelStats,
   modelPoints: doc.modelPoints,
   modelQuantity: doc.modelQuantity,
@@ -74,7 +74,7 @@ ModelSchema.statics.findByOwner = (ownerId, callback) => {
   };
   return ModelModel
     .find(search)
-    .select('modelName modelStats modelPoints modelQuantity modelUpgrades modelUpgradesCost id')
+    .select('modelGnome modelStats modelPoints modelQuantity modelUpgrades modelUpgradesCost id')
     .exec(callback);
 };
 

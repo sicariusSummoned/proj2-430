@@ -22,7 +22,7 @@ const login = (request, response) => {
 
   if (!username || !password) {
     return res.status(400).json({
-      error: 'RAWR! All fields are required',
+      error: 'ERROR! Missing data detected!',
     });
   }
 
@@ -52,13 +52,13 @@ const signup = (request, response) => {
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
     return res.status(400).json({
-      error: 'RAWR! All fields are required',
+      error: 'ERROR! Missing fields detected!',
     });
   }
 
   if (req.body.pass !== req.body.pass2) {
     return res.status(400).json({
-      error: 'RAWR! Passswords do not match',
+      error: 'ERROR! Passswords must match',
     });
   }
 

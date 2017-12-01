@@ -8,7 +8,7 @@ var handleLogin = function handleLogin(e) {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '') {
-    handleError("RAWR! Username or password is empty");
+    handleError("ERROR! Missing data detected!");
     return false;
   }
 
@@ -26,12 +26,12 @@ var handleSignup = function handleSignup(e) {
   }, 350);
 
   if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("RAWR! All fields are required");
+    handleError("ERROR! Missing data detected!");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("RAWR! Passwords do not match!");
+    handleError("ERROR! Passwords must match!");
     return false;
   }
 
@@ -142,11 +142,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({ width: 'toggle' }, 350);
+  $("#domoMessage").animate({ width: 'toggle' }, 650);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({ width: 'hide' }, 350);
+  $("#domoMessage").animate({ width: 'hide' }, 650);
   window.location = response.redirect;
 };
 
