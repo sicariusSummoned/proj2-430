@@ -189,13 +189,20 @@ const ArmyList = function(props) {
     return(
       <div key={army._id} className="army">
         <h3 className="listName">{army.listName}</h3>
-        <h3 className="listFaction">Keyword: {army.listFaction}</h3>
-        <h3 className="listArmy">Codex: {army.listArmy}</h3>
-        <h3 className="listSubFaction">Doctrines: {army.listSubFaction}</h3>
-        <h3 className="listPoints">Points: {army.listPoints}</h3>
-        <h3 className="listPower">Power: {army.listPower}</h3>
-        <a className="armyId" className="deleteImg" href={"/delete/"+ army._id}><img src="/assets/img/minus.png"/></a>
-        <a className="armyId" className="addImg" href={"/detachments/"+ army._id}><img src="/assets/img/plus.png"/></a>
+        <div className="itemContent">
+          <h3 className="listFaction">Keyword: {army.listFaction}</h3>
+          <h3 className="listArmy">Codex: {army.listArmy}</h3>
+          <h3 className="listSubFaction">Doctrines: {army.listSubFaction}</h3>
+        </div>
+        <div className="itemPointsPower">
+          <h3 className="listPoints">Points: {army.listPoints}</h3>
+          <h3 className="listPower">Power: {army.listPower}</h3>
+        </div>
+        <div className="itemImages">
+          <a className="armyId" className="deleteImg" href={"/delete/"+ army._id}><img src="/assets/img/minus.png"/></a>
+          <a className="armyId" className="addImg" href={"/detachments/"+ army._id}><img src="/assets/img/plus.png"/></a>
+        </div>
+        
       </div>
     );
   });
@@ -225,10 +232,15 @@ const DetachmentList = function(props) {
     return(
       <div key={detachment._id} className="detachment">
         <h3 className="detachmentType">Type: {detachment.detachmentType}</h3>
-        <h3 className="detachmentPoints">Points: {detachment.detachmentPoints}</h3>
-        <h3 className="detachmentPower">Power: {detachment.detachmentPower}</h3>
-        <a className="detachmentId" className="deleteImg" href={"/deleteDetachment/"+detachment._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
-        <a className="detachmentId" className="addImg" href={"/units/"+detachment._id}><img src="/assets/img/plus.png"/></a>
+        <div className="itemPointsPower">
+          <h3 className="detachmentPoints">Points: {detachment.detachmentPoints}</h3>
+          <h3 className="detachmentPower">Power: {detachment.detachmentPower}</h3>
+        </div>
+        <div className="itemImages">
+          <a className="detachmentId" className="deleteImg" href={"/deleteDetachment/"+detachment._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+          <a className="detachmentId" className="addImg" href={"/units/"+detachment._id}><img src="/assets/img/plus.png"/></a>
+        </div>
+        
       </div>
     );
   });
@@ -257,14 +269,24 @@ const UnitList = function(props) {
     return(
       <div key={unit._id} className="unit">
         <h3 className="unitName">{unit.unitName}</h3>
-        <h3 className="unitType">Type: {unit.unitType}</h3>
-        <h3 className="unitPoints">Points: {unit.unitPoints}</h3>
-        <h3 className="unitPower">Power: {unit.unitPower}</h3>
-        <h3 className="unitUpgrades">Upgrades: {unit.unitUpgrades}</h3>
-        <h3 className="unitUpgradesCost">Upgrades Cost: {unit.unitUpgradesCost}</h3>
-        <h3 className="unitSpecialRules">Special Rules: {unit.unitSpecialRules}</h3>
-        <a className="unitId" className="deleteImg" href={"/deleteUnit/"+unit._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
-        <a className="unitId" className="addImg" href={"/models/"+unit._id}><img src="/assets/img/plus.png"/></a>
+        <div className="itemContent">
+          <h3 className="unitType">Type: {unit.unitType}</h3>
+          
+          <h3 className="unitUpgrades">Upgrades: {unit.unitUpgrades}</h3>
+          <h3 className="unitUpgradesCost">Upgrades Cost: {unit.unitUpgradesCost}</h3>
+          <h3 className="unitSpecialRules">Special Rules: {unit.unitSpecialRules}</h3>
+        </div>
+        
+        <div className="itemPointsPower">
+          <h3 className="unitPoints">Points: {unit.unitPoints}</h3>
+          <h3 className="unitPower">Power: {unit.unitPower}</h3>
+        </div>
+        
+        <div className="itemImages">
+          <a className="unitId" className="deleteImg" href={"/deleteUnit/"+unit._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+          <a className="unitId" className="addImg" href={"/models/"+unit._id}><img src="/assets/img/plus.png"/></a>
+        </div>
+        
       </div>
     );
   });
@@ -294,12 +316,22 @@ const ModelList = function(props) {
     return(
       <div key={model._id} className="model">
         <h3 className="modelName">{model.modelGnome}</h3>
-        <h3 className="modelStats">Stats: {model.modelStats}</h3>
-        <h3 className="modelPoints">Points: {model.modelPoints}</h3>
-        <h3 className="modelQuantity">#: {model.modelQuantity}</h3>
-        <h3 className="modelUpgrades">Upgrades: {model.modelUpgrades}</h3>
-        <h3 className="modelUpgradesCost">Upgrades Cost: {model.modelUpgradesCost}</h3>
-        <a className="modelId" className="deleteImg" href={"/deleteModel/"+model._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+        
+        <div className="itemContent">
+          <h3 className="modelStats">Stats: {model.modelStats}</h3>
+          <h3 className="modelQuantity">#: {model.modelQuantity}</h3>
+          <h3 className="modelUpgrades">Upgrades: {model.modelUpgrades}</h3>
+          <h3 className="modelUpgradesCost">Upgrades Cost: {model.modelUpgradesCost}</h3>
+
+        </div>
+        
+        <div className="itemPointsPower">
+          <h3 className="modelPoints">Points: {model.modelPoints}</h3>
+        </div>
+        
+        <div className="itemImages">
+          <a className="modelId" className="deleteImg" href={"/deleteModel/"+model._id +'/'+ownerString}><img src="/assets/img/minus.png"/></a>
+        </div>
       </div>
     );
   });

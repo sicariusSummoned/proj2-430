@@ -278,7 +278,7 @@ nav:nth-child(1) {
   border-radius: 4px;
   background-color: #ece9e7;
   padding: 10px;
-  min-height: 60px;
+  min-height: 300px;
   overflow: hidden;
 }
 
@@ -338,9 +338,8 @@ h3.listPoints,
 h3.detachmentPoints,
 h3.unitPoints,
 h3.modelPoints {
-  margin-top: 200px;
+  margin-top: 0;
   font-size: 24pt;
-  margin-bottom: 0;
   float: left;
 }
 
@@ -348,9 +347,8 @@ h3.listPower,
 h3.detachmentPower,
 h3.unitPower,
 h3.modelPower {
-  margin-top:200px;
+  margin-top:0;
   font-size: 24pt;
-  margin-bottom: 0;
   float: right;
 }
 
@@ -370,6 +368,22 @@ h3.modelUpgradesCost,
   text-align: left;
   margin-left: 35%;
   
+}
+
+.itemContent{
+  min-height: 100px;
+  align-content: center;
+  text-align: center;
+}
+
+.itemPointsPower{
+  min-height: 100px;
+  margin-top: 0;
+}
+
+.itemImages{
+  min-height: 100px;
+  margin-bottom: 0;
 }
 
 h3.modelStats{

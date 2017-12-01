@@ -290,44 +290,56 @@ var ArmyList = function ArmyList(props) {
         army.listName
       ),
       React.createElement(
-        "h3",
-        { className: "listFaction" },
-        "Keyword: ",
-        army.listFaction
+        "div",
+        { className: "itemContent" },
+        React.createElement(
+          "h3",
+          { className: "listFaction" },
+          "Keyword: ",
+          army.listFaction
+        ),
+        React.createElement(
+          "h3",
+          { className: "listArmy" },
+          "Codex: ",
+          army.listArmy
+        ),
+        React.createElement(
+          "h3",
+          { className: "listSubFaction" },
+          "Doctrines: ",
+          army.listSubFaction
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "listArmy" },
-        "Codex: ",
-        army.listArmy
+        "div",
+        { className: "itemPointsPower" },
+        React.createElement(
+          "h3",
+          { className: "listPoints" },
+          "Points: ",
+          army.listPoints
+        ),
+        React.createElement(
+          "h3",
+          { className: "listPower" },
+          "Power: ",
+          army.listPower
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "listSubFaction" },
-        "Doctrines: ",
-        army.listSubFaction
-      ),
-      React.createElement(
-        "h3",
-        { className: "listPoints" },
-        "Points: ",
-        army.listPoints
-      ),
-      React.createElement(
-        "h3",
-        { className: "listPower" },
-        "Power: ",
-        army.listPower
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement = { className: "armyId" }, _defineProperty(_React$createElement, "className", "deleteImg"), _defineProperty(_React$createElement, "href", "/delete/" + army._id), _React$createElement),
-        React.createElement("img", { src: "/assets/img/minus.png" })
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement2 = { className: "armyId" }, _defineProperty(_React$createElement2, "className", "addImg"), _defineProperty(_React$createElement2, "href", "/detachments/" + army._id), _React$createElement2),
-        React.createElement("img", { src: "/assets/img/plus.png" })
+        "div",
+        { className: "itemImages" },
+        React.createElement(
+          "a",
+          (_React$createElement = { className: "armyId" }, _defineProperty(_React$createElement, "className", "deleteImg"), _defineProperty(_React$createElement, "href", "/delete/" + army._id), _React$createElement),
+          React.createElement("img", { src: "/assets/img/minus.png" })
+        ),
+        React.createElement(
+          "a",
+          (_React$createElement2 = { className: "armyId" }, _defineProperty(_React$createElement2, "className", "addImg"), _defineProperty(_React$createElement2, "href", "/detachments/" + army._id), _React$createElement2),
+          React.createElement("img", { src: "/assets/img/plus.png" })
+        )
       )
     );
   });
@@ -370,26 +382,34 @@ var DetachmentList = function DetachmentList(props) {
         detachment.detachmentType
       ),
       React.createElement(
-        "h3",
-        { className: "detachmentPoints" },
-        "Points: ",
-        detachment.detachmentPoints
+        "div",
+        { className: "itemPointsPower" },
+        React.createElement(
+          "h3",
+          { className: "detachmentPoints" },
+          "Points: ",
+          detachment.detachmentPoints
+        ),
+        React.createElement(
+          "h3",
+          { className: "detachmentPower" },
+          "Power: ",
+          detachment.detachmentPower
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "detachmentPower" },
-        "Power: ",
-        detachment.detachmentPower
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement3 = { className: "detachmentId" }, _defineProperty(_React$createElement3, "className", "deleteImg"), _defineProperty(_React$createElement3, "href", "/deleteDetachment/" + detachment._id + '/' + ownerString), _React$createElement3),
-        React.createElement("img", { src: "/assets/img/minus.png" })
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement4 = { className: "detachmentId" }, _defineProperty(_React$createElement4, "className", "addImg"), _defineProperty(_React$createElement4, "href", "/units/" + detachment._id), _React$createElement4),
-        React.createElement("img", { src: "/assets/img/plus.png" })
+        "div",
+        { className: "itemImages" },
+        React.createElement(
+          "a",
+          (_React$createElement3 = { className: "detachmentId" }, _defineProperty(_React$createElement3, "className", "deleteImg"), _defineProperty(_React$createElement3, "href", "/deleteDetachment/" + detachment._id + '/' + ownerString), _React$createElement3),
+          React.createElement("img", { src: "/assets/img/minus.png" })
+        ),
+        React.createElement(
+          "a",
+          (_React$createElement4 = { className: "detachmentId" }, _defineProperty(_React$createElement4, "className", "addImg"), _defineProperty(_React$createElement4, "href", "/units/" + detachment._id), _React$createElement4),
+          React.createElement("img", { src: "/assets/img/plus.png" })
+        )
       )
     );
   });
@@ -430,50 +450,62 @@ var UnitList = function UnitList(props) {
         unit.unitName
       ),
       React.createElement(
-        "h3",
-        { className: "unitType" },
-        "Type: ",
-        unit.unitType
+        "div",
+        { className: "itemContent" },
+        React.createElement(
+          "h3",
+          { className: "unitType" },
+          "Type: ",
+          unit.unitType
+        ),
+        React.createElement(
+          "h3",
+          { className: "unitUpgrades" },
+          "Upgrades: ",
+          unit.unitUpgrades
+        ),
+        React.createElement(
+          "h3",
+          { className: "unitUpgradesCost" },
+          "Upgrades Cost: ",
+          unit.unitUpgradesCost
+        ),
+        React.createElement(
+          "h3",
+          { className: "unitSpecialRules" },
+          "Special Rules: ",
+          unit.unitSpecialRules
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "unitPoints" },
-        "Points: ",
-        unit.unitPoints
+        "div",
+        { className: "itemPointsPower" },
+        React.createElement(
+          "h3",
+          { className: "unitPoints" },
+          "Points: ",
+          unit.unitPoints
+        ),
+        React.createElement(
+          "h3",
+          { className: "unitPower" },
+          "Power: ",
+          unit.unitPower
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "unitPower" },
-        "Power: ",
-        unit.unitPower
-      ),
-      React.createElement(
-        "h3",
-        { className: "unitUpgrades" },
-        "Upgrades: ",
-        unit.unitUpgrades
-      ),
-      React.createElement(
-        "h3",
-        { className: "unitUpgradesCost" },
-        "Upgrades Cost: ",
-        unit.unitUpgradesCost
-      ),
-      React.createElement(
-        "h3",
-        { className: "unitSpecialRules" },
-        "Special Rules: ",
-        unit.unitSpecialRules
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement5 = { className: "unitId" }, _defineProperty(_React$createElement5, "className", "deleteImg"), _defineProperty(_React$createElement5, "href", "/deleteUnit/" + unit._id + '/' + ownerString), _React$createElement5),
-        React.createElement("img", { src: "/assets/img/minus.png" })
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement6 = { className: "unitId" }, _defineProperty(_React$createElement6, "className", "addImg"), _defineProperty(_React$createElement6, "href", "/models/" + unit._id), _React$createElement6),
-        React.createElement("img", { src: "/assets/img/plus.png" })
+        "div",
+        { className: "itemImages" },
+        React.createElement(
+          "a",
+          (_React$createElement5 = { className: "unitId" }, _defineProperty(_React$createElement5, "className", "deleteImg"), _defineProperty(_React$createElement5, "href", "/deleteUnit/" + unit._id + '/' + ownerString), _React$createElement5),
+          React.createElement("img", { src: "/assets/img/minus.png" })
+        ),
+        React.createElement(
+          "a",
+          (_React$createElement6 = { className: "unitId" }, _defineProperty(_React$createElement6, "className", "addImg"), _defineProperty(_React$createElement6, "href", "/models/" + unit._id), _React$createElement6),
+          React.createElement("img", { src: "/assets/img/plus.png" })
+        )
       )
     );
   });
@@ -514,39 +546,51 @@ var ModelList = function ModelList(props) {
         model.modelGnome
       ),
       React.createElement(
-        "h3",
-        { className: "modelStats" },
-        "Stats: ",
-        model.modelStats
+        "div",
+        { className: "itemContent" },
+        React.createElement(
+          "h3",
+          { className: "modelStats" },
+          "Stats: ",
+          model.modelStats
+        ),
+        React.createElement(
+          "h3",
+          { className: "modelQuantity" },
+          "#: ",
+          model.modelQuantity
+        ),
+        React.createElement(
+          "h3",
+          { className: "modelUpgrades" },
+          "Upgrades: ",
+          model.modelUpgrades
+        ),
+        React.createElement(
+          "h3",
+          { className: "modelUpgradesCost" },
+          "Upgrades Cost: ",
+          model.modelUpgradesCost
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "modelPoints" },
-        "Points: ",
-        model.modelPoints
+        "div",
+        { className: "itemPointsPower" },
+        React.createElement(
+          "h3",
+          { className: "modelPoints" },
+          "Points: ",
+          model.modelPoints
+        )
       ),
       React.createElement(
-        "h3",
-        { className: "modelQuantity" },
-        "#: ",
-        model.modelQuantity
-      ),
-      React.createElement(
-        "h3",
-        { className: "modelUpgrades" },
-        "Upgrades: ",
-        model.modelUpgrades
-      ),
-      React.createElement(
-        "h3",
-        { className: "modelUpgradesCost" },
-        "Upgrades Cost: ",
-        model.modelUpgradesCost
-      ),
-      React.createElement(
-        "a",
-        (_React$createElement7 = { className: "modelId" }, _defineProperty(_React$createElement7, "className", "deleteImg"), _defineProperty(_React$createElement7, "href", "/deleteModel/" + model._id + '/' + ownerString), _React$createElement7),
-        React.createElement("img", { src: "/assets/img/minus.png" })
+        "div",
+        { className: "itemImages" },
+        React.createElement(
+          "a",
+          (_React$createElement7 = { className: "modelId" }, _defineProperty(_React$createElement7, "className", "deleteImg"), _defineProperty(_React$createElement7, "href", "/deleteModel/" + model._id + '/' + ownerString), _React$createElement7),
+          React.createElement("img", { src: "/assets/img/minus.png" })
+        )
       )
     );
   });
